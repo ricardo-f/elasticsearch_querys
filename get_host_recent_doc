@@ -1,0 +1,29 @@
+GET metricbeat-*/_search
+{
+  "sort": [
+    {
+      "@timestamp": {
+        "order": "desc"
+      }
+    }
+  ],
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "host.name": "Machine Hostname Here"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "tags": {
+      "terms": {
+        "field": "cluster.environment"
+      }
+    }
+  },
+  "size": 1
+}

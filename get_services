@@ -1,0 +1,12 @@
+GET apm-*/_search
+{
+  "aggs": {
+    "services": {
+      "terms": {
+        "field": "service.name",
+        "size": 10000
+      }
+    }
+  },
+  "size": 0
+}

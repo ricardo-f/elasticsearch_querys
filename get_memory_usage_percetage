@@ -1,0 +1,27 @@
+GET metricbeat-*/_search
+{
+  "sort": [
+    {
+      "@timestamp": {
+        "order": "desc"
+      }
+    }
+  ],
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "host.name": "Your Hostname"
+          }
+        },
+        {
+          "term": {
+            "metricset.name": "memory"
+          }
+        }
+      ]
+    }
+  },
+  "size": 1
+}

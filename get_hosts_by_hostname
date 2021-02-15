@@ -1,0 +1,12 @@
+GET metricbeat-*/_search
+{
+  "aggs": {
+    "hostname": {
+      "terms": {
+        "field": "host.name",
+        "size": 10000
+      }
+    }
+  },
+  "size": 0
+}

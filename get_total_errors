@@ -1,0 +1,48 @@
+GET apm-*/_count
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "service.environment": "Prod, dev or the given name to your environment"
+          }
+        },
+        {
+          "term": {
+            "service.name": "Your service Name"
+          }
+        },
+        {
+          "term": {
+            "processor.event": "transaction"
+          }
+        },
+        {
+          "term": {
+            "http.request.method": "The HTTP method of your application"
+          }
+        },
+        {
+          "range": {
+            "@timestamp": {
+              "gte": "now-1d/d"
+            }
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "match": {
+            "transaction.result": "HTTP 2xx"
+          }
+        }
+      ]
+    }
+  }
+}
